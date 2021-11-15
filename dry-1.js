@@ -1,5 +1,5 @@
 /**
- * Validates all required attributes of imported product are set
+ * Validates all required attributes of product are set
  * @param {*} product
  */
 function validateProduct(product) {
