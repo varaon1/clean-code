@@ -1,4 +1,4 @@
-//do something for each of the maximum to 100 entries
-for (let i = 0; i < 99; i++) {
+//process each of a maximum of 42 records
+for (let i = 0; i < 42; i++) {
   //... do something
 }

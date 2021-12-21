@@ -1,12 +1,5 @@
-const calendar = {
-  monday: "Monday",
-  tuesday: "Tuesday",
-};
+const GRAVITATIONAL_CONSTANT = 9.81;
 
-function doSomethingMagic(day) {
-  if (day === calendar.monday) {
-    console.log("Hello Monday");
-  } else if (day === calendar.tuesday) {
-    console.log("Oh my...");
-  }
+function getPotentialEnergy(mass, height) {
+  return mass * height * GRAVITATIONAL_CONSTANT;
 }
