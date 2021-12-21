@@ -1,14 +1,14 @@
-const summerRate = 1.00;
+const summerRate = 1.0;
 const winterRate = 1.12;
 const winterServiceCharge = 180;
-var winterStart = 4
+const winterStart = new Date("2021-12-20T23:00:00.000Z");
+const winterEnd = new Date("2022-03-19T23:00:00.000Z");
 
 function getTicketPrice(date, quantity) {
   let charge;
-  if (date.before(WINTER_START) || date.after(WINTER_END)) {
+  if (date < winterStart || date > winterEnd) {
     charge = quantity * summerRate;
-  }
-  else {
+  } else {
     charge = quantity * winterRate + winterServiceCharge;
   }
   return charge;
