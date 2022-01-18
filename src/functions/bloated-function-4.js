@@ -1,15 +1,25 @@
 // noinspection JSUnusedGlobalSymbols
-
 const { Matcher } = require("uu_appg01_server").Validation;
 const { ValidationResult } = require("uu_appg01_server").Validation;
 const { Validator } = require("uu_appg01_server").Validation;
-
 const MasterDataErrors = require("../errors/upload-master-data-error");
 
+/**
+ * Double number matcher implemented according to https://uuapp.plus4u.net/uu-bookkit-maing01/2590bf997d264d959b9d6a88ee1d0ff5/book/page?code=validationsReferenceDocumentation_00
+ *
+ * @param params - Matcher can take 0 to 3 parameters with following rules:
+ * - no parameters: validates that string length of decimal number (including decimal separator) does not exceed the maximum value of 11.
+ * - one parameter: the parameter specifies maximum length of number for the above rule (parameter replaces the default value of 11)
+ * - two parameters:
+ *   -- first parameter represents the maximum number of digits of the whole part,
+ *   -- the second parameter represents the maximum number of decimal places.
+ *   -- both conditions must be met in this case.
+ * Decimal separator is always "."
+ * The value can also be null, it is considered as valid then
+ */
 class _DoubleNumberMatcher extends Matcher {
   constructor(...params) {
     super("doubleNumberMatcher", ...params);
-    this.params = params;
   }
 
   processParams(...params) {
@@ -25,7 +35,6 @@ class _DoubleNumberMatcher extends Matcher {
 
   match(value, ctx, ...args) {
     this.result = new ValidationResult();
-    let uuAppErrorMap = { Error: MasterDataErrors.UploadMasterData };
 
     if (value != null) {
       let split = value.toString().split(".");
@@ -35,22 +44,12 @@ class _DoubleNumberMatcher extends Matcher {
             "doubleNumberMatcher.e001",
             `The value must have max ${this.maxDigits} digits`
           );
-          this.result.invalidValues = value;
-          throw new MasterDataErrors.UploadMasterData.InvalidDtoIn(
-            { uuAppErrorMap },
-            { cause: this.result }
-          );
         }
       } else {
         if (split[0].length + split[1].length > this.maxDigits) {
           this.result.addInvalidTypeError(
             "doubleNumberMatcher.e001",
             `The value must have max ${this.maxDigits} digits`
-          );
-          this.result.invalidValues = value;
-          throw new MasterDataErrors.UploadMasterData.InvalidDtoIn(
-            { uuAppErrorMap },
-            { cause: this.result }
           );
         }
 
@@ -59,16 +58,10 @@ class _DoubleNumberMatcher extends Matcher {
             "doubleNumberMatcher.e002",
             `The value must have max ${this.maxDigits} digits (including max ${this.maxScale} after decimal point)`
           );
-          this.result.invalidValues = value;
-          throw new MasterDataErrors.UploadMasterData.InvalidDtoIn(
-            { uuAppErrorMap },
-            { cause: this.result }
-          );
         }
       }
     }
 
-    this.valid = true;
     return this;
   }
 }

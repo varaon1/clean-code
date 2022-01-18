@@ -12,8 +12,13 @@
   },
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "uu_appg01_server": "^5.0.0",
+    "decimal.js": "3.0.0"
+  },
   "devDependencies": {
     "eslint": "^8.5.0",
+    "jest": "^27.4.7",
     "prettier": "^2.5.1"
   }
 }
