@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 class Stadium {
   constructor() {
     this.summerRate = 1.0;

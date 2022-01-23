@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 /**
  * Validates all required attributes of imported product are set
  * @param {*} product

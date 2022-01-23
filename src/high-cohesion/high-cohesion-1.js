@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 class UserService {
   login(credentials) {}
 

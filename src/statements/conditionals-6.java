@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 /**
    * Search data in search dataStore according to specific input parameters.
    *

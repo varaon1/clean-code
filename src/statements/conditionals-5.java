@@ -1,3 +1,4 @@
+// noinspection JSUnusedGlobalSymbols
 
 private SearchRequest filterByAggregation(ListAggregatedCertificatesDtoIn dtoIn) {
     if (dtoIn.getIndex() == null) {
