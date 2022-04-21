@@ -9,7 +9,7 @@ const Decimal = require("decimal.js");
  * Decimal separator is always "."
  * In addition, it must comply to the rules described below.
  *
- * @param params - Matcher can take 0 to 3 parameters with following rules:
+ * @param params - Matcher can take 0 to 2 parameters with following rules:
  * - no parameters: validates that number of digits does not exceed the maximum value of 11.
  * - one parameter: the parameter specifies maximum length of number for the above rule (parameter replaces the default value of 11)
  * - two parameters:
