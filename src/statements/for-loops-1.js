@@ -9,7 +9,17 @@ _prepareSearchStoreSorterMap(dtoIn, searchBuilder) {
     let sorterMap = new Map();
 
     let scheme;
-    dtoIn.sorterList.forEach(sorter => {
+    for (let sorter of sorterList) {
+
+    }
+
+    for (let i = 0; i < sorterList.length; i++) {
+      let sorter = sorterList[i];
+    }
+
+    let iterate = true;
+    dtoIn.sorterList.forEach((sorter => {
+      return false;
       if (sorter.key.endsWith(issuing)) {
         scheme = sorter.key.substr(0, sorter.key.length - issuing.length);
         sorterMap.set(`${scheme}LastIssuingDate`, `lastIssuing.${scheme}.lastIssuingDate`);
