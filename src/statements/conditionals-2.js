@@ -1,4 +1,18 @@
 // noinspection JSUnusedGlobalSymbols
+const STATE = {
+  UNITED_STATES: {
+    code: "US",
+    discount: 0.85,
+  },
+  RUSSIA: {
+    code: "RU",
+    discount: 0.75,
+  },
+  CANADA: {
+    code: "CN",
+    discount: 0.9,
+  },
+};
 
 class Order {
   constructor(products, user) {
@@ -12,20 +26,13 @@ class Order {
       total += product.quantity * product.price;
     }
 
-    // Apply regional discounts.
-    switch (this._user.getCountry()) {
-      case "US":
-        total *= 0.85;
-        break;
-      case "RU":
-        total *= 0.75;
-        break;
-      case "CN":
-        total *= 0.9;
-        break;
-      // ...
-    }
+    total = this.applyRegionalDiscounts(total);
 
+    return total;
+  }
+
+  applyRegionalDiscounts(total) {
+    total *= this._user.getCountry().discount;
     return total;
   }
 }

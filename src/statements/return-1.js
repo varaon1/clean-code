@@ -8,20 +8,10 @@ class Payout {
   }
 
   getPayAmount() {
-    let result;
+    const result = 0;
     if (this.isDead) {
       result = this.deadAmount();
-    } else {
-      if (this.isSeparated) {
-        result = this.separatedAmount();
-      } else {
-        if (this.isRetired) {
-          result = this.retiredAmount();
-        } else {
-          result = this.normalPayAmount();
-        }
-      }
-    }
+      console.log(result);
     return result;
   }
 
