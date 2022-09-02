@@ -1,10 +1,9 @@
-function renderBanner(platform, browser, resize, wasInitialized) {
+function renderBanner(platform, browser, resize, isInitialized) {
   const isMacOs = platform.toUpperCase().indexOf("MAC") > -1;
   const isIE = browser.toUpperCase().indexOf("IE") > -1;
-  const wasResized = resize > 0;
+  const isResized = resize > 0;
 
-  if (isMacOs && isIE && wasInitialized && wasResized) {
+  if (isMacOs && isIE && isInitialized && isResized) {
     // do something
   }
 }
-

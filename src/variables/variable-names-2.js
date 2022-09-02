@@ -1,8 +1,5 @@
-function renderBanner(platform, browser, resize, wasInitialized) {
-  if ((platform.toUpperCase().indexOf("MAC") > -1) &&
-    (browser.toUpperCase().indexOf("IE") > -1) &&
-    wasInitialized && resize > 0 )
-  {
+function renderBanner(platform, browser, resize, isInitialized) {
+  if (platform.toUpperCase().indexOf("MAC") > -1 && browser.toUpperCase().indexOf("IE") > -1 && isInitialized && resize > 0) {
     // do something
   }
 }

@@ -5,11 +5,14 @@ let animalObj = {
     country: "USA",
   },
 };
-
+let count = 20;
 let animalObjWithLegs = {
   ...animalObj,
   legCount: 4,
 };
+if (!true) {
+  console.log("aaa");
+}
 
 animalObj.name = "Cat changed";
 animalObj.origin.country = "Canada";

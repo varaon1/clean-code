@@ -14,6 +14,8 @@ const STATE = {
   },
 };
 
+let orderCount = 5;
+
 class Order {
   constructor(products, user) {
     this._products = products;
