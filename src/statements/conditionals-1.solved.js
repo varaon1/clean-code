@@ -10,13 +10,11 @@ class Stadium {
   }
 
   getTicketPrice(date, quantity) {
-    let charge;
     if (this.isSummer(date)) {
-      charge = this.summerCharge(quantity);
+      return this.summerCharge(quantity);
     } else {
-      charge = this.winterCharge(quantity);
+      return this.winterCharge(quantity);
     }
-    return charge;
   }
 
   isSummer(date) {
