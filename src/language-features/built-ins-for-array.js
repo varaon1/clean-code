@@ -17,11 +17,10 @@ const homeAnimalExists = animals.some((a) => a.indexOf(`Home `) >= 0);
 console.log(`homeAnimalExists (some): ${homeAnimalExists}`);
 
 let mappedAnimals = animals.map((a) => {
-  let animalObj = {
+  return {
     name: a,
     type: `Mammal`,
   };
-  return animalObj;
 });
 console.log(`mappedAnimals: `);
 console.log(mappedAnimals);
