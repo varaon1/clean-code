@@ -7,4 +7,4 @@ let animalObj = {
 };
 
 console.log("Country: " + animalObj.origin?.country);
-console.log("Owner's firstname: " + animalObj.owner.firstname);
+console.log("Owner's firstname: " + animalObj.owner?.firstname);

@@ -10,13 +10,22 @@ class Stadium {
   }
 
   getTicketPrice(date, quantity) {
-    let charge;
-    if (date < this.winterStart || date > this.winterEnd) {
-      charge = quantity * this.summerRate;
+    if (this.isSummer(date)) {
+      return this.summerCharge(quantity);
     } else {
-      charge = quantity * this.winterRate + this.winterServiceCharge;
+      return this.winterCharge(quantity);
     }
-    return charge;
   }
 
+  winterCharge(quantity) {
+    return quantity * this.winterRate + this.winterServiceCharge;
+  }
+
+  summerCharge(quantity) {
+    return quantity * this.summerRate;
+  }
+
+  isSummer(date) {
+    return date < this.winterStart || date > this.winterEnd;
+  }
 }
