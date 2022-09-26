@@ -19,15 +19,4 @@ class Stadium {
     return charge;
   }
 
-  winterCharge(quantity) {
-    return quantity * this.winterRate + this.winterServiceCharge;
-  }
-
-  summerCharge(quantity) {
-    return quantity * this.summerRate;
-  }
-
-  isSummer(date) {
-    return date < this.winterStart || date > this.winterEnd;
-  }
 }
