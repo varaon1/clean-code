@@ -1,11 +1,14 @@
 // noinspection JSUnusedGlobalSymbols
 
 class Size {
-  setWidth(width) {
-    this.width = width;
-  }
-
-  setHeight(height) {
-    this.height = height;
+  setValue(name, value) {
+    if (name === "height") {
+      this.height = value;
+      return;
+    }
+    if (name === "width") {
+      this.width = value;
+      return;
+    }
   }
 }
