@@ -4,8 +4,7 @@ class Fibonnacci {
   calculateFibonnacci10() {
     // program to generate fibonacci series up to a certain number
 
-    // take input from the user
-    const number = 10;
+    // take input from the userconst number = 10;
     let n1 = 0,
       n2 = 1,
       nextTerm;
@@ -15,7 +14,7 @@ class Fibonnacci {
 
     nextTerm = n1 + n2;
     let result = "";
-    while (nextTerm <= number) {
+    while (nextTerm <= 10) {
       // print the next term
       result += nextTerm + " ";
 
@@ -31,7 +30,6 @@ class Fibonnacci {
     // program to generate fibonacci series up to a certain number
 
     // take input from the user
-    const number = 20;
     let n1 = 0,
       n2 = 1,
       nextTerm;
@@ -41,7 +39,7 @@ class Fibonnacci {
 
     nextTerm = n1 + n2;
     let result = "";
-    while (nextTerm <= number) {
+    while (nextTerm <= 20) {
       // print the next term
       result += nextTerm + " ";
 

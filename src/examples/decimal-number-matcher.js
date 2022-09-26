@@ -1,8 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
-const { Matcher } = require("uu_appg01_server").Validation;
-const { ValidationResult } = require("uu_appg01_server").Validation;
-const { Validator } = require("uu_appg01_server").Validation;
+
 const Decimal = require("decimal.js");
+const ValidationResult = require("./validation-result");
 
 /**
  * Matcher validates that string value represents a decimal number or null.
@@ -16,18 +15,13 @@ const Decimal = require("decimal.js");
  *   -- first parameter represents the total maximum number of digits,
  *   -- the second parameter represents the maximum number of decimal places.
  *   -- both conditions must be met in this case.
- * Implemented according to https://uuapp.plus4u.net/uu-bookkit-maing01/2590bf997d264d959b9d6a88ee1d0ff5/book/page?code=validationsReferenceDocumentation_00
  */
-class DecimalNumberMatcher extends Matcher {
+class DecimalNumberMatcher {
   constructor(...params) {
-    super("doubleNumberMatcher", ...params);
-  }
-
-  processParams(...params) {
     this.params = params;
   }
 
-  match(value, ctx, ...args) {
+  match(value) {
     let result = new ValidationResult();
 
     if (value != null) {
