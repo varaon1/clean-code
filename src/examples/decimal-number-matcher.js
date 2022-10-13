@@ -5,16 +5,6 @@ const ValidationResult = require("./validation-result");
 
 /**
  * Matcher validates that string value represents a decimal number or null.
- * Decimal separator is always "."
- * In addition, it must comply to the rules described below.
- *
- * @param params - Matcher can take 0 to 2 parameters with following rules:
- * - no parameters: validates that number of digits does not exceed the maximum value of 11.
- * - one parameter: the parameter specifies maximum length of number for the above rule (parameter replaces the default value of 11)
- * - two parameters:
- *   -- first parameter represents the total maximum number of digits,
- *   -- the second parameter represents the maximum number of decimal places.
- *   -- both conditions must be met in this case.
  */
 class DecimalNumberMatcher {
   /**
@@ -39,7 +29,8 @@ class DecimalNumberMatcher {
   });
 
   /**
-   * Method takes decimal number and provide validations
+   * Method takes number and provide validations.
+   * Decimal separator is always "."
    * @param {String} inputValue
    * @returns {ValidationResult}
    */
@@ -47,15 +38,14 @@ class DecimalNumberMatcher {
     if (inputValue === null) {
       return new ValidationResult();
     }
-    const decimalNumber = this.getDecimalNumber(inputValue);
-
-    return this._validateDecimalNumber(decimalNumber);
+    return this._validateDecimalNumber(this.getDecimalNumber(inputValue));
   }
 
   /**
    * @param {String} inputValue
    * @returns {Decimal|null} - returns Decimal object or null in case of invalid inputValue
    */
+  //TODO move to NumberHelper
   getDecimalNumber(inputValue) {
     let decimalNumber;
     try {
