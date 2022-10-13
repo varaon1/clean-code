@@ -81,7 +81,7 @@ class DecimalNumberMatcher {
   }
 
   _isMaxDecimalPlacesExceeded(decimalNumber) {
-    return decimalNumber && decimalNumber.decimalPlaces() > this.maxDecimalDigits;
+    return this.maxDecimalDigits && decimalNumber.decimalPlaces() > this.maxDecimalDigits;
   }
 }
 
