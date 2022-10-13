@@ -17,60 +17,81 @@ const ValidationResult = require("./validation-result");
  *   -- both conditions must be met in this case.
  */
 class DecimalNumberMatcher {
-  constructor(...params) {
-    this.params = params;
+  /**
+   * Constructor with optional params
+   * @param {Number} maxTotalDigits - optional param with default value: 11
+   * @param {Number} maxDecimalDigits - optional param without default value
+   */
+  constructor(maxTotalDigits = 11, maxDecimalDigits) {
+    this.maxTotalDigits = maxTotalDigits;
+    this.maxDecimalDigits = maxDecimalDigits;
   }
 
-  match(value) {
-    let result = new ValidationResult();
+  /**
+   * Enum for common errors
+   * @readonly
+   * @enum {{code: string, message: string}}
+   */
+  Errors = Object.freeze({
+    INVALID_DECIMAL_NUMBER: { code: "doubleNumber.e001", message: "The value is not a valid decimal number." },
+    MAX_DIGITS_EXCEEDED: { code: "doubleNumber.e002", message: "The value exceeded maximum number of digits." },
+    MAX_DECIMAL_PLACES_EXCEEDED: { code: "doubleNumber.e003", message: "The value exceeded maximum number of decimal places." },
+  });
 
-    if (value != null) {
-      if (this.params.length === 0) {
-        let number;
-        try {
-          number = new Decimal(value);
-        } catch (e) {
-          number = null;
-          result.addInvalidTypeError("doubleNumber.e001", "The value is not a valid decimal number.");
-        }
-        if (number) {
-          if (number.precision(true) > 11) {
-            result.addInvalidTypeError("doubleNumber.e002", "The value exceeded maximum number of digits.");
-          }
-        }
-      } else if (this.params.length === 1) {
-        let number;
-        try {
-          number = new Decimal(value);
-        } catch (e) {
-          number = null;
-          result.addInvalidTypeError("doubleNumber.e001", "The value is not a valid decimal number.");
-        }
-        if (number) {
-          if (number.precision(true) > this.params[0]) {
-            result.addInvalidTypeError("doubleNumber.e002", "The value exceeded maximum number of digits.");
-          }
-        }
-      } else if (this.params.length === 2) {
-        let number;
-        try {
-          number = new Decimal(value);
-        } catch (e) {
-          number = null;
-          result.addInvalidTypeError("doubleNumber.e001", "The value is not a valid decimal number.");
-        }
-        if (number) {
-          if (number.precision(true) > this.params[0]) {
-            result.addInvalidTypeError("doubleNumber.e002", "The value exceeded maximum number of digits.");
-          }
-          if (number.decimalPlaces() > this.params[1]) {
-            result.addInvalidTypeError("doubleNumber.e003", "The value exceeded maximum number of decimal places.");
-          }
-        }
-      }
+  /**
+   * Method takes decimal number and provide validations
+   * @param {String} inputValue
+   * @returns {ValidationResult}
+   */
+  match(inputValue) {
+    if (inputValue === null) {
+      return new ValidationResult();
     }
+    const decimalNumber = this.getDecimalNumber(inputValue);
 
+    return this._validateDecimalNumber(decimalNumber);
+  }
+
+  /**
+   * @param {String} inputValue
+   * @returns {Decimal|null} - returns Decimal object or null in case of invalid inputValue
+   */
+  getDecimalNumber(inputValue) {
+    let decimalNumber;
+    try {
+      decimalNumber = new Decimal(inputValue);
+    } catch (e) {
+      decimalNumber = null;
+    }
+    return decimalNumber;
+  }
+
+  /**
+   * @param {Decimal} decimalNumber
+   * @returns {ValidationResult}
+   * @private
+   */
+  _validateDecimalNumber(decimalNumber) {
+    const result = new ValidationResult();
+    if (decimalNumber === null) {
+      result.addInvalidTypeError(this.Errors.INVALID_DECIMAL_NUMBER.code, this.Errors.INVALID_DECIMAL_NUMBER.message);
+      return result;
+    }
+    if (this._isMaxTotalDigitsExceeded(decimalNumber)) {
+      result.addInvalidTypeError(this.Errors.MAX_DIGITS_EXCEEDED.code, this.Errors.MAX_DIGITS_EXCEEDED.message);
+    }
+    if (this._isMaxDecimalPlacesExceeded(decimalNumber)) {
+      result.addInvalidTypeError(this.Errors.MAX_DECIMAL_PLACES_EXCEEDED.code, this.Errors.MAX_DECIMAL_PLACES_EXCEEDED.message);
+    }
     return result;
+  }
+
+  _isMaxTotalDigitsExceeded(decimalNumber) {
+    return decimalNumber.precision(true) > this.maxTotalDigits;
+  }
+
+  _isMaxDecimalPlacesExceeded(decimalNumber) {
+    return decimalNumber && decimalNumber.decimalPlaces() > this.maxDecimalDigits;
   }
 }
 
